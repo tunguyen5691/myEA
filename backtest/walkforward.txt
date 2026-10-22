@@ -1,0 +1,30 @@
+== Chon thong so CHI tren 2022-2024 (diem = loi / sut von) ==
+  vong 1: L        -> 12  (loi/DD -0.36)
+  vong 1: sl_bars  -> 4  (loi/DD -0.31)
+  vong 1: rsi      -> (70, 30)  (loi/DD -0.20)
+  vong 1: rev      -> loi/khong mo  (loi/DD 0.27)
+  vong 1: lim      -> M + L33 x1  (loi/DD 0.31)
+  vong 1: hours    -> tat  (loi/DD 0.31)
+  vong 2: L        -> 11  (loi/DD 1.07)
+  vong 2: sl_bars  -> 4  (loi/DD 1.07)
+  vong 2: rsi      -> (70, 30)  (loi/DD 1.07)
+  vong 2: rev      -> loi/khong mo  (loi/DD 1.07)
+  vong 2: lim      -> 3 lenh deu (M + L33 + L66 x1)  (loi/DD 1.14)
+  vong 2: hours    -> bo 03-07  (loi/DD 1.15)
+
+Bo thong so chon tu 2022-2024: {'L': 11, 'sl_bars': 4, 'rsi': (70, 30), 'rev': 'loi/khong mo', 'lim': '3 lenh deu (M + L33 + L66 x1)', 'hours': 'bo 03-07'}
+Ban chot hien tai (chon bang 5 nam): {'L': 10, 'sl_bars': 4, 'rsi': (70, 30), 'rev': 'loi/khong mo', 'lim': 'M + L33 x3', 'hours': 'bo 03-07'}
+
+goc (L14...) train   -9.7%/nam  DD  1144 USD  loi/DD -0.76  | 22:  -8% 23: -14% 24:  -7%
+goc (L14...) TEST  +53.9%/nam  DD  1774 USD  loi/DD  1.64  | 25: +40% 26: +57%
+chon 22-24 train   +5.2%/nam  DD   404 USD  loi/DD  1.15  | 22:  +8% 23:  +1% 24:  +6%
+chon 22-24 TEST  +36.0%/nam  DD   770 USD  loi/DD  2.53  | 25: +28% 26: +37%
+ban chot train   +5.8%/nam  DD   606 USD  loi/DD  0.86  | 22:  +6% 23:  +5% 24:  +5%
+ban chot TEST  +128.1%/nam  DD  1511 USD  loi/DD  4.58  | 25: +85% 26:+146%
+
+== Ban chot, doi cach chia lenh ==
+3 lenh deu (M  tr   +3.8%/nam  DD   491 USD  loi/DD  0.70  | 22:  +5% 23:  -0% 24:  +7%    ||    TEST            +76.7%/nam  DD  1115 USD  loi/DD  3.72  | 25: +61% 26: +78%
+M + L33 x3 tr    +5.8%/nam  DD   606 USD  loi/DD  0.86  | 22:  +6% 23:  +5% 24:  +5%    ||    TEST           +128.1%/nam  DD  1511 USD  loi/DD  4.58  | 25: +85% 26:+146%
+M + L50 x2 tr    +3.6%/nam  DD   513 USD  loi/DD  0.63  | 22:  +6% 23:  -2% 24:  +6%    ||    TEST            +92.2%/nam  DD   813 USD  loi/DD  6.13  | 25: +59% 26:+107%
+M + L33 x1 tr    +4.1%/nam  DD   401 USD  loi/DD  0.93  | 22:  +2% 23:  +1% 24:  +9%    ||    TEST            +68.1%/nam  DD   783 USD  loi/DD  4.70  | 25: +56% 26: +67%
+chi market tr    +4.3%/nam  DD   304 USD  loi/DD  1.28  | 22:  +3% 23:  -1% 24: +11%    ||    TEST            +41.2%/nam  DD   427 USD  loi/DD  5.22  | 25: +35% 26: +39%

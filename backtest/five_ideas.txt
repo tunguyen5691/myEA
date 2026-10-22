@@ -1,0 +1,34 @@
+=== goc ===
+hien tai                           PnL  +7777 ( +259%)  DD  1250 (  42%)  PnL/DD  6.22  ro/th 23.6  win  41%  nam+ 5/5  | 22:  +71 23:  +58 24: +262 25:+2319 26:+5068
+=== 1) nhoi lenh ===
+nhoi toi da 1, SL struct           PnL  +7931 ( +264%)  DD  1384 (  46%)  PnL/DD  5.73  ro/th 23.9  win  38%  nam+ 4/5  | 22:  -67 23:   +9 24: +362 25:+2622 26:+5004
+nhoi toi da 1, SL be               PnL  +6916 ( +231%)  DD  1349 (  45%)  PnL/DD  5.13  ro/th 24.0  win  39%  nam+ 5/5  | 22: +172 23:  +24 24:  +48 25:+2581 26:+4091
+nhoi toi da 2, SL struct           PnL  +7900 ( +263%)  DD  1485 (  50%)  PnL/DD  5.32  ro/th 24.0  win  38%  nam+ 4/5  | 22:  -73 23:  +46 24: +314 25:+2673 26:+4940
+nhoi toi da 2, SL be               PnL  +6727 ( +224%)  DD  1450 (  48%)  PnL/DD  4.64  ro/th 24.0  win  39%  nam+ 5/5  | 22: +158 23:   +5 24:  +47 25:+2636 26:+3882
+nhoi toi da 3, SL struct           PnL  +7949 ( +265%)  DD  1485 (  50%)  PnL/DD  5.35  ro/th 24.0  win  38%  nam+ 4/5  | 22:  -73 23:  +46 24: +314 25:+2721 26:+4940
+nhoi toi da 3, SL be               PnL  +6695 ( +223%)  DD  1450 (  48%)  PnL/DD  4.62  ro/th 24.0  win  39%  nam+ 5/5  | 22: +183 23:   +5 24:  +47 25:+2621 26:+3839
+=== 2) chot 1 phan o RSI ===
+chot 50%, con lai cho nguoc/SL     PnL  +7149 ( +238%)  DD  1250 (  42%)  PnL/DD  5.72  ro/th 22.2  win  41%  nam+ 4/5  | 22:  +23 23:  -48 24: +202 25:+2419 26:+4553
+chot 50%, con lai SL hoa von       PnL  +7202 ( +240%)  DD  1250 (  42%)  PnL/DD  5.76  ro/th 22.4  win  41%  nam+ 4/5  | 22:  +25 23:  -23 24: +147 25:+2407 26:+4645
+chot 50%, con lai trailing 2R      PnL  +7092 ( +236%)  DD  1250 (  42%)  PnL/DD  5.67  ro/th 22.8  win  41%  nam+ 4/5  | 22:  +38 23:  -23 24: +157 25:+2581 26:+4339
+chot 50%, hoa von + trailing 3R    PnL  +7575 ( +252%)  DD  1250 (  42%)  PnL/DD  6.06  ro/th 22.6  win  41%  nam+ 4/5  | 22:  +20 23:   -8 24: +143 25:+2359 26:+5061
+chot 67%, con lai cho nguoc/SL     PnL  +7128 ( +238%)  DD  1250 (  42%)  PnL/DD  5.70  ro/th 22.2  win  41%  nam+ 4/5  | 22:  +26 23:  -11 24: +228 25:+2418 26:+4467
+chot 67%, con lai SL hoa von       PnL  +7142 ( +238%)  DD  1250 (  42%)  PnL/DD  5.71  ro/th 22.4  win  41%  nam+ 5/5  | 22:  +27 23:   +6 24: +173 25:+2409 26:+4527
+chot 67%, con lai trailing 2R      PnL  +7155 ( +239%)  DD  1250 (  42%)  PnL/DD  5.72  ro/th 22.8  win  42%  nam+ 5/5  | 22:  +39 23:   +5 24: +179 25:+2584 26:+4349
+chot 67%, hoa von + trailing 3R    PnL  +7346 ( +245%)  DD  1250 (  42%)  PnL/DD  5.88  ro/th 22.6  win  41%  nam+ 5/5  | 22:  +22 23:  +16 24: +171 25:+2353 26:+4785
+=== 3) lot theo ATR (so voi ~1 nam) ===
+lot x2 co dinh (de so sanh)        PnL +15555 ( +518%)  DD  2500 (  83%)  PnL/DD  6.22  ro/th 23.6  win  41%  nam+ 5/5  | 22: +141 23: +115 24: +524 25:+4637 26:+10137
+x2 khi ATR >= 1.2 lan TB           PnL +14207 ( +474%)  DD  2329 (  78%)  PnL/DD  6.10  ro/th 23.6  win  41%  nam+ 5/5  | 22:  +14 23: +128 24: +501 25:+4329 26:+9236
+x2 khi ATR >= 1.5 lan TB           PnL +12973 ( +432%)  DD  2165 (  72%)  PnL/DD  5.99  ro/th 23.6  win  41%  nam+ 4/5  | 22:  -20 23: +128 24: +419 25:+4145 26:+8300
+lot = ATR/TB, kep 1..2             PnL +12816 ( +427%)  DD  2197 (  73%)  PnL/DD  5.83  ro/th 23.6  win  41%  nam+ 4/5  | 22:  -38 23:  +77 24: +412 25:+4237 26:+8128
+lot = ATR/TB, kep 1..3             PnL +15545 ( +518%)  DD  3060 ( 102%)  PnL/DD  5.08  ro/th 23.6  win  41%  nam+ 4/5  | 22:  -86 23:  +77 24: +552 25:+4843 26:+10159
+=== 4) tranh gio tin My ===
+bo +-15p quanh 8:30 ET             PnL  +7386 ( +246%)  DD  1119 (  37%)  PnL/DD  6.60  ro/th 22.5  win  41%  nam+ 5/5  | 22:  +86 23: +118 24: +146 25:+2077 26:+4959
+bo +-30p quanh 8:30 ET             PnL  +7248 ( +242%)  DD  1119 (  37%)  PnL/DD  6.48  ro/th 21.8  win  41%  nam+ 5/5  | 22:  +37 23: +120 24: +219 25:+1718 26:+5154
+bo +-60p quanh 8:30 ET             PnL  +7285 ( +243%)  DD  1119 (  37%)  PnL/DD  6.51  ro/th 20.7  win  42%  nam+ 5/5  | 22:  +46 23: +132 24: +195 25:+1726 26:+5187
+bo +-30p 8:30 + 14:00 thu 4        PnL  +7427 ( +248%)  DD  1119 (  37%)  PnL/DD  6.64  ro/th 21.4  win  41%  nam+ 5/5  | 22:  +72 23:  +91 24: +170 25:+1740 26:+5353
+bo +-30p 8:30 + 10:00 + 14:00 T4   PnL  +7349 ( +245%)  DD  1119 (  37%)  PnL/DD  6.57  ro/th 20.2  win  40%  nam+ 5/5  | 22:  +20 23:  +14 24: +263 25:+1820 26:+5232
+=== 5) lai kep (lot theo von) ===
+lot theo von/3000: von cuoi 29007  lai kep 60.4%/nam  sut von 32% dinh (7696 USD)
+lot theo von/4000: von cuoi 17542  lai kep 44.5%/nam  sut von 25% dinh (3333 USD)
+lot co dinh: von cuoi 10777  lai kep 30.5%/nam  sut von 15% dinh (1250 USD)

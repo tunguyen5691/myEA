@@ -1,0 +1,5 @@
+co dinh M0.01 + L0.03      von cuoi    8777  lai kep  57.2%/nam  lo xau nhat (bat dau luc te nhat)  1250 USD
+co dinh M0.01 + L0.01      von cuoi    4773  lai kep  38.5%/nam  lo xau nhat (bat dau luc te nhat)   677 USD
+lot theo von/3000 (tu 1000) von cuoi   12089  lai kep  68.1%/nam  sut von  31% dinh  lo xau nhat  3162 USD
+lot theo von/4000 (tu 1000) von cuoi    7359  lai kep  51.6%/nam  sut von  30% dinh  lo xau nhat  1411 USD
+lot theo von/2000 (tu 1000) von cuoi   24667  lai kep  95.0%/nam  sut von  43% dinh  lo xau nhat 10322 USD

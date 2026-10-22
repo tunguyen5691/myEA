@@ -1,0 +1,21 @@
+Lo lon nhat neu bat dau tu 01/2022: 74 USD
+Lo lon nhat neu bat dau o thoi diem XAU NHAT (06/02/2026): 1511 USD
+So thang bat dau thu: 58
+Von  | sut lon nhat (te nhat) | thang bat dau bi lo > 50% von | > 80% von (gan chay) | chay (lo >= von)
+ 1000 |   151%                 |   5/58                        |   0/58               |   0/58
+ 1500 |   101%                 |   0/58                        |   0/58               |   0/58
+ 2000 |    76%                 |   0/58                        |   0/58               |   0/58
+ 2500 |    60%                 |   0/58                        |   0/58               |   0/58
+ 3000 |    50%                 |   0/58                        |   0/58               |   0/58
+ 4000 |    38%                 |   0/58                        |   0/58               |   0/58
+ 5000 |    30%                 |   0/58                        |   0/58               |   0/58
+5 thang bat dau te nhat: [('04/2026', 705), ('03/2026', 623), ('02/2026', 614), ('06/2023', 570), ('05/2023', 508)]
+
+Bat dau moi ngay (1496 ngay):
+ 1000: chay    2 ngay ( 0.1%)  lo > 50% von  7.9%  | ngay chay: 06/02/2026 -> 07/04/2026
+ 1500: chay    0 ngay ( 0.0%)  lo > 50% von  1.1%  | ngay chay: -
+ 2000: chay    0 ngay ( 0.0%)  lo > 50% von  0.1%  | ngay chay: -
+ 2500: chay    0 ngay ( 0.0%)  lo > 50% von  0.1%  | ngay chay: -
+ 3000: chay    0 ngay ( 0.0%)  lo > 50% von  0.0%  | ngay chay: -
+ 4000: chay    0 ngay ( 0.0%)  lo > 50% von  0.0%  | ngay chay: -
+ 5000: chay    0 ngay ( 0.0%)  lo > 50% von  0.0%  | ngay chay: -

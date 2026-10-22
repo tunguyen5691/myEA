@@ -1,0 +1,21 @@
+RSI70/30 nguoc=always vao_moi=co   PnL  +2848 (  +95%)  DD  1059 (  35%)  PnL/DD  2.69  ro/th 47.9  win  32%  nam+ 4/5  | 22: +323 23: -357 24:  +25 25:+1243 26:+1615
+RSI70/30 nguoc=always vao_moi=ko   PnL  +2541 (  +85%)  DD   819 (  27%)  PnL/DD  3.10  ro/th 37.9  win  32%  nam+ 4/5  | 22: +181 23: -255 24:  +35 25: +980 26:+1599
+RSI70/30 nguoc=loss vao_moi=co     PnL   +972 (  +32%)  DD  1882 (  63%)  PnL/DD  0.52  ro/th 33.5  win  21%  nam+ 4/5  | 22:  +84 23: -255 24: +237 25: +329 26: +577
+RSI70/30 nguoc=loss vao_moi=ko     PnL  +1369 (  +46%)  DD  1593 (  53%)  PnL/DD  0.86  ro/th 29.4  win  22%  nam+ 4/5  | 22:  +21 23: -224 24: +367 25: +309 26: +895
+RSI70/30 nguoc=profit vao_moi=co   PnL  +2418 (  +81%)  DD  1778 (  59%)  PnL/DD  1.36  ro/th 37.5  win  39%  nam+ 4/5  | 22: +166 23:   -2 24:  +56 25:+1441 26: +757
+RSI70/30 nguoc=profit vao_moi=ko   PnL  +3314 ( +110%)  DD  1007 (  34%)  PnL/DD  3.29  ro/th 34.2  win  39%  nam+ 5/5  | 22: +175 23:   +9 24:  +66 25:+1543 26:+1522
+RSI70/30 nguoc=never vao_moi=co    PnL  +2140 (  +71%)  DD  1922 (  64%)  PnL/DD  1.11  ro/th 25.2  win  27%  nam+ 5/5  | 22:  +69 23:  +36 24: +444 25:+1128 26: +462
+RSI65/35 nguoc=always vao_moi=co   PnL  +2184 (  +73%)  DD   841 (  28%)  PnL/DD  2.60  ro/th 49.7  win  34%  nam+ 3/5  | 22: +229 23: -291 24: -136 25: +713 26:+1669
+RSI65/35 nguoc=always vao_moi=ko   PnL  +1987 (  +66%)  DD   819 (  27%)  PnL/DD  2.43  ro/th 40.8  win  35%  nam+ 3/5  | 22:  +90 23: -178 24:  -75 25: +605 26:+1546
+RSI65/35 nguoc=loss vao_moi=co     PnL  +1094 (  +36%)  DD   923 (  31%)  PnL/DD  1.19  ro/th 42.2  win  26%  nam+ 2/5  | 22:  +33 23: -318 24: -149 25:   -4 26:+1533
+RSI65/35 nguoc=loss vao_moi=ko     PnL  +1285 (  +43%)  DD  1018 (  34%)  PnL/DD  1.26  ro/th 37.0  win  27%  nam+ 3/5  | 22:  -73 23: -199 24:  +39 25: +224 26:+1294
+RSI65/35 nguoc=profit vao_moi=co   PnL  +1506 (  +50%)  DD  1469 (  49%)  PnL/DD  1.03  ro/th 39.6  win  41%  nam+ 3/5  | 22:  -34 23:  +25 24: -100 25:+1063 26: +551
+RSI65/35 nguoc=profit vao_moi=ko   PnL  +2344 (  +78%)  DD  1012 (  34%)  PnL/DD  2.32  ro/th 37.2  win  41%  nam+ 2/5  | 22:  -47 23:  -24 24:  -49 25:+1212 26:+1253
+RSI65/35 nguoc=never vao_moi=co    PnL  +1059 (  +35%)  DD  1213 (  40%)  PnL/DD  0.87  ro/th 32.4  win  33%  nam+ 3/5  | 22: -172 23:  -94 24:  +95 25: +631 26: +599
+L9 RSI70/30 nguoc=always vao_moi=co PnL  +2864 (  +95%)  DD  1260 (  42%)  PnL/DD  2.27  ro/th 53.1  win  32%  nam+ 4/5  | 22: +126 23: -178 24: +134 25:+1361 26:+1421
+L9 RSI70/30 nguoc=profit vao_moi=ko PnL  +4049 ( +135%)  DD   981 (  33%)  PnL/DD  4.13  ro/th 37.2  win  40%  nam+ 4/5  | 22:  +47 23:   -6 24: +189 25:+1520 26:+2299
+L11 RSI70/30 nguoc=always vao_moi=co PnL  +1471 (  +49%)  DD  1342 (  45%)  PnL/DD  1.10  ro/th 44.3  win  31%  nam+ 3/5  | 22: +183 23: -313 24:  -21 25:+1153 26: +469
+L11 RSI70/30 nguoc=profit vao_moi=ko PnL  +1241 (  +41%)  DD  1132 (  38%)  PnL/DD  1.10  ro/th 32.6  win  37%  nam+ 4/5  | 22: +154 23:  -12 24: +107 25: +365 26: +626
+L14 RSI70/30 nguoc=always vao_moi=co PnL  +3265 ( +109%)  DD  1311 (  44%)  PnL/DD  2.49  ro/th 35.1  win  32%  nam+ 2/5  | 22: -179 23: -248 24:  -98 25:+1423 26:+2366
+L14 RSI70/30 nguoc=profit vao_moi=ko PnL  +3370 ( +112%)  DD   851 (  28%)  PnL/DD  3.96  ro/th 27.7  win  36%  nam+ 3/5  | 22: +156 23: -104 24: -180 25: +811 26:+2686
+L10 profit/ko spread 0.4           PnL  +3129 ( +104%)  DD  1070 (  36%)  PnL/DD  2.93  ro/th 34.7  win  39%  nam+ 5/5  | 22: +160 23:  +33 24:  +65 25:+1474 26:+1397

@@ -1,0 +1,5 @@
+lot co dinh                          von cuoi     10443  lai kep  29.7%/nam  sut von max  19% (  1511 USD)  ro lo nhat   -150 | cuoi nam: 22:   3190 23:   3354 24:   3518 25:   6071 26:  10443
+bac: x1 moi 3000 USD                 von cuoi     15320  lai kep  40.5%/nam  sut von max  31% (  4996 USD)  ro lo nhat   -612 | cuoi nam: 22:   3190 23:   3354 24:   3518 25:   6129 26:  15320
+ty le: lot theo von/3000             von cuoi     22619  lai kep  52.3%/nam  sut von max  39% (  8046 USD)  ro lo nhat   -979 | cuoi nam: 22:   3190 23:   3346 24:   3503 25:   6846 26:  22619
+ty le: lot theo von/4000 (nhe hon)   von cuoi     16084  lai kep  41.9%/nam  sut von max  31% (  4141 USD)  ro lo nhat   -489 | cuoi nam: 22:   3172 23:   3237 24:   3475 25:   6146 26:  16084
+ty le: lot theo von/6000 (nhe nua)   von cuoi     10601  lai kep  30.1%/nam  sut von max  20% (  1771 USD)  ro lo nhat   -268 | cuoi nam: 22:   3184 23:   3241 24:   3468 25:   5531 26:  10601
