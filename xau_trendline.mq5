@@ -21,12 +21,15 @@
 //|       d > InpMaxDist       -> keo SL ve dung InpMaxDist gia       |
 //|       d < InpMinDistTrade  -> KHONG vao lenh                      |
 //|       d < InpMinDistLimits -> chi 1 lenh market                   |
-//|       con lai -> 1 market + limit 1 (33% d, lot 0.03), limit 2    |
+//|       con lai -> 1 market + limit 1 (50% d, lot 0.03), limit 2    |
 //|                  tat (InpLimit2Lot = 0)                           |
 //|                  % cua d (tinh tu entry ve phia SL)               |
-//|     - Ca ro chung SL, KHONG dat TP.                               |
+//|     - Ca ro chung SL, KHONG dat TP. InpMaxDist = 100.             |
+//|     - Ro TRUOC lai > 0 -> ro moi lot x InpLotAfterWin (0.5) ca    |
+//|       market lan limit (lam tron theo buoc lot, toi thieu = min). |
 //|     - 03:00-07:59 gio VN (InpNoEntryFrom/To): KHONG vao lenh moi, |
 //|       tin hieu nguoc van dong ro cu.                              |
+//|     - THU 4 (gio VN, InpSkipWednesday): KHONG vao lenh moi.       |
 //|     - GIO TIN MY: khong vao lenh moi +-30 phut quanh 8:30 New York|
 //|       (CPI, NFP...) moi ngay va 14:00 New York thu 4 (FOMC).      |
 //|       Tu tinh gio he My, dua tren TimeGMT().                      |
@@ -54,9 +57,14 @@
 //|     Danh sach le cua san khac nhau -> tu cap nhat moi nam.        |
 //|  Chay duoc tren tai khoan netting va hedging.                     |
 //|  Gan EA vao khong vao theo tin hieu cu, cho nen H1 tiep theo.     |
+//|                                                                  |
+//|  v1.10 (2026-11-04): SL toi da 100, limit 50%, bo thu 4, nua lot  |
+//|  sau ro thang. Backtest M1 06/2021-11/2026, lot 0.01+0.03 / 3000$:|
+//|  +243% (~25%/nam), DD 524$ (17.5%), Monte Carlo 95% DD ~30%.      |
+//|  Cent 1000$ an toan (DD ~20% ca khi xui): lot 0.22 + limit 0.66.  |
 //+------------------------------------------------------------------+
 #property copyright "Tunt5"
-#property version   "1.00"
+#property version   "1.10"
 #property strict
 
 #include <Trade\Trade.mqh>
@@ -68,15 +76,17 @@ input double InpMult          = 1.0;     // He so do doc
 input int    InpHistBars      = 1500;    // So nen lich su de tinh
 input double InpLot           = 0.01;    // Lot lenh market
 input int    InpSlBars        = 4;       // SL = low/high cua bao nhieu nen vua dong (backtest: 4 tot nhat)
-input double InpMaxDist       = 50.0;    // SL toi da (gia), xa hon -> keo SL ve muc nay
+input double InpMaxDist       = 100.0;   // SL toi da (gia), xa hon -> keo SL ve muc nay (backtest 2026-11: 100 tot hon 50)
 input double InpMinDistTrade  = 3.0;     // d nho hon (gia) -> khong vao lenh
 input double InpMinDistLimits = 10.0;    // d nho hon (gia) -> chi 1 lenh market
-input double InpLimit1Pct     = 33.0;    // Limit 1: % cua d tinh tu entry
+input double InpLimit1Pct     = 50.0;    // Limit 1: % cua d tinh tu entry (backtest 2026-11: 40-60% deu tot hon 33%)
 input double InpLimit1Lot     = 0.03;    // Limit 1: lot (0 = tat)
 input double InpLimit2Pct     = 66.0;    // Limit 2: % cua d tinh tu entry
 input double InpLimit2Lot     = 0.0;     // Limit 2: lot (0 = tat; backtest: khop limit 2 thuong dinh SL)
 input int    InpNoEntryFrom   = 3;       // Khong vao lenh moi tu gio nay (gio VN)...
 input int    InpNoEntryTo     = 8;       // ...den truoc gio nay (3 -> 8 = 03:00-07:59)
+input bool   InpSkipWednesday = true;    // Khong vao lenh moi ngay thu 4 (gio VN) - backtest: thu 4 lo ca 5/5 nam
+input double InpLotAfterWin   = 0.5;     // Ro truoc THANG -> lot market + limit ro moi x he so nay (1 = tat)
 input bool   InpRevOnlyProfit = true;    // Tin hieu nguoc: chi dong ro khi dang loi (lo -> giu)
 input bool   InpRevOpenNew    = false;   // Tin hieu nguoc: dong xong co vao ro chieu moi khong
 input bool   InpUseNewsFilter = true;    // Khong vao lenh quanh gio tin My
@@ -221,6 +231,12 @@ void OnTick()
                   isBuy ? "BUY" : "SELL", InpNoEntryFrom, InpNoEntryTo);
       return;               // van dong ro nguoc o tren, chi khong vao moi
    }
+   if(InpSkipWednesday && IsWednesdayVN())
+   {
+      PrintFormat("xau_trendline: tin hieu %s ngay thu 4 (gio VN) -> bo qua",
+                  isBuy ? "BUY" : "SELL");
+      return;
+   }
    if(InpUseNewsFilter && InNewsWindow())
    {
       PrintFormat("xau_trendline: tin hieu %s gan gio tin My (+-%d phut) -> bo qua",
@@ -324,6 +340,60 @@ bool InNoEntryHours()
    if(InpNoEntryFrom < InpNoEntryTo)
       return(dt.hour >= InpNoEntryFrom && dt.hour < InpNoEntryTo);
    return(dt.hour >= InpNoEntryFrom || dt.hour < InpNoEntryTo);   // qua nua dem
+}
+
+//--- Hom nay (gio VN) la thu 4
+bool IsWednesdayVN()
+{
+   MqlDateTime dt;
+   TimeToStruct(TimeGMT() + InpGmtOffsetHours * 3600, dt);
+   return(dt.day_of_week == 3);
+}
+
+//--- Ten GlobalVariable luu thoi diem mo ro gan nhat
+string OpenGv() { return("XTL_OPEN_" + _Symbol + "_" + IntegerToString(InpMagic)); }
+
+//--- He so lot cho ro moi: ro truoc (tu luc mo den nay) lai > 0 -> InpLotAfterWin, nguoc lai 1.
+//--- Lai ro truoc = tong profit + swap + commission cac deal cua EA tu thoi diem mo ro truoc.
+double LotFactor(string &why)
+{
+   why = "";
+   if(InpLotAfterWin == 1.0 || !GlobalVariableCheck(OpenGv()))
+      return(1.0);
+   datetime from = (datetime)GlobalVariableGet(OpenGv());
+   if(!HistorySelect(from, TimeCurrent() + 60))
+      return(1.0);
+   double pnl = 0;
+   int    n   = 0;
+   for(int i = HistoryDealsTotal() - 1; i >= 0; i--)
+   {
+      ulong t = HistoryDealGetTicket(i);
+      if(t == 0) continue;
+      if(HistoryDealGetString(t, DEAL_SYMBOL) != _Symbol) continue;
+      if(HistoryDealGetInteger(t, DEAL_MAGIC) != InpMagic) continue;
+      pnl += HistoryDealGetDouble(t, DEAL_PROFIT) + HistoryDealGetDouble(t, DEAL_SWAP)
+           + HistoryDealGetDouble(t, DEAL_COMMISSION);
+      n++;
+   }
+   if(n == 0)
+      return(1.0);
+   if(pnl > 0)
+   {
+      why = StringFormat(", ro truoc thang %+.2f -> lot x%.2f", pnl, InpLotAfterWin);
+      return(InpLotAfterWin);
+   }
+   return(1.0);
+}
+
+//--- Lam tron lot theo buoc cua san; < min -> min (minAsZero = true -> tra 0 de bo lenh)
+double NormLot(double lot, bool minAsZero)
+{
+   double step = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_STEP);
+   double vmin = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN);
+   lot = MathRound(lot / step) * step;
+   if(lot < vmin)
+      return(minAsZero ? 0.0 : vmin);
+   return(NormalizeDouble(lot, 2));
 }
 
 //+------------------------------------------------------------------+
@@ -596,14 +666,18 @@ void OpenBasket(bool isBuy, double sl)
    double tp = 0;           // khong TP, chot bang tin hieu nguoc
    string cmt = "xtl " + side;
 
-   bool ok = isBuy ? g_trade.Buy(InpLot, _Symbol, 0, sl, tp, cmt)
-                   : g_trade.Sell(InpLot, _Symbol, 0, sl, tp, cmt);
+   string why;
+   double fac  = LotFactor(why);
+   double mlot = NormLot(InpLot * fac, false);
+   bool ok = isBuy ? g_trade.Buy(mlot, _Symbol, 0, sl, tp, cmt)
+                   : g_trade.Sell(mlot, _Symbol, 0, sl, tp, cmt);
    if(!ok || g_trade.ResultRetcode() != TRADE_RETCODE_DONE)
    {
       PrintFormat("xau_trendline: vao %s loi %d %s", side,
                   g_trade.ResultRetcode(), g_trade.ResultRetcodeDescription());
       return;
    }
+   GlobalVariableSet(OpenGv(), (double)TimeCurrent());   // moc tinh lai/lo ro nay cho lan sau
 
    int nLim = 0;
    if(d >= InpMinDistLimits)
@@ -611,12 +685,11 @@ void OpenBasket(bool isBuy, double sl)
       double pct[2], lots[2];
       pct[0] = InpLimit1Pct;  lots[0] = InpLimit1Lot;
       pct[1] = InpLimit2Pct;  lots[1] = InpLimit2Lot;
-      double step = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_STEP);
       for(int k = 0; k < 2; k++)
       {
-         double lot = MathRound(lots[k] / step) * step;
-         if(lot < SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN))
+         if(lots[k] <= 0)
             continue;       // limit nay tat
+         double lot = NormLot(lots[k] * fac, false);
          double off   = d * pct[k] / 100.0;
          double price = NormalizeDouble(isBuy ? entry - off : entry + off, _Digits);
          // limit phai cach gia hien tai va SL du stops level
@@ -632,8 +705,8 @@ void OpenBasket(bool isBuy, double sl)
       }
    }
 
-   Notify(StringFormat("xau_trendline %s %s %.2f SL %.2f d=%.2f, %d limit",
-                       _Symbol, side, entry, sl, d, nLim));
+   Notify(StringFormat("xau_trendline %s %s %.2f lot %.2f SL %.2f d=%.2f, %d limit%s",
+                       _Symbol, side, entry, mlot, sl, d, nLim, why));
 }
 
 //+------------------------------------------------------------------+

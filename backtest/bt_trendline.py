@@ -104,7 +104,8 @@ def run(tf, sig_rows, ex_rows, min_trade, min_limits, max_dist, sl_bars=3, sprea
         lot=0.01, deposit=3000.0, pcts=(0.33, 0.66), L=14, mult=1.0, sig=None, allow=None,
         exit_filtered=True, be_r=None, trail_r=None, tp_r=None, exit_at=None, exit_profit_only=False,
         rev_mode="always", rev_open=True, orders=None, scale_per=None, scale_mode="floor",
-        pyr_max=0, pyr_sl="struct", part_frac=None, part_be=False, part_trail_r=None, lot_fn=None):
+        pyr_max=0, pyr_sl="struct", part_frac=None, part_be=False, part_trail_r=None, lot_fn=None,
+        lot_ctx=None, swap_year=0.0, time_stop=None, be_map=None):
     """be_r: lai >= be_r x d -> dua SL ve gia vao lenh market (hoa von).
     trail_r: lai >= trail_r x d -> SL bam theo, cach gia tot nhat trail_r x d.
     tp_r: chot loi ca ro khi gia di duoc tp_r x d tu gia vao market (None = khong TP).
@@ -126,7 +127,12 @@ def run(tf, sig_rows, ex_rows, min_trade, min_limits, max_dist, sl_bars=3, sprea
       pyr_sl "struct": SL ca ro = SL moi (InpSlBars nen) neu chat hon, "be": SL ve gia vao goc.
     part_frac: cham RSI -> chot part_frac moi lenh, xoa limit; phan con lai giu den tin hieu nguoc /
       SL / nghi; part_be: dua SL phan con lai ve hoa von; part_trail_r: trailing phan con lai.
-    lot_fn(i) -> he so lot cho ro vao o nen TF thu i (vd theo ATR)."""
+    lot_fn(i) -> he so lot cho ro vao o nen TF thu i (vd theo ATR).
+    lot_ctx(i, d, baskets, bal) -> he so lot theo trang thai (ro truoc thang/thua, sut von...); 0 = bo qua ro.
+    swap_year: phi swap / nam theo gia tri lenh (0.06 = 6%), tru moi lan qua ngay, dem thu 4 x3.
+    time_stop: phut; ro mo lau hon ma dang lo -> dong.
+    be_map: {chi so nen M5: (buy, sell)} -> dua SL ro ve gia vao trung binh (hoa von).
+    baskets: (t mo, is_buy, pnl, so lenh, ly do, d, lo noi sau nhat, t dong)."""
     usd = lot * 100.0                      # USD / 1 gia / lenh he so 1
     if orders is None:
         orders = [(0.0, 1.0)] + [(k, 1.0) for k in pcts]
@@ -168,20 +174,36 @@ def run(tf, sig_rows, ex_rows, min_trade, min_limits, max_dist, sl_bars=3, sprea
     curve = []                             # (thoi gian, lai/lo luy ke gom ca lenh dang chay)
     stats = {"skip_small": 0, "clamped": 0, "one": 0, "full": 0}
 
+    wst = [0.0]                            # lo noi sau nhat cua ro dang mo
+
     def close_all(price_bid, reason, t):
         nonlocal bal, side, pos, pend, cur, adds, partial, extra
         px = price_bid if side else price_bid + spread
         pnl = flo_at(px) * usd
         bal += pnl
         if pos:
-            baskets.append((cur[0], side, pnl + extra, len(pos), reason, cur[1]))
+            baskets.append((cur[0], side, pnl + extra, len(pos), reason, cur[1], min(wst[0], pnl + extra), t))
         side, pos, pend, cur = None, [], [], None
         adds, partial, extra = 0, False, 0.0
+        wst[0] = 0.0
 
+    prev_t = None
     for j, (t, o, hi, lo, c) in enumerate(ex_rows):
         p = paused(t)
         if side is not None and p:
             close_all(o, "pause", t)
+        if swap_year and side is not None and pos and prev_t is not None and t.date() != prev_t.date():
+            nights = 3 if prev_t.weekday() == 2 else 1
+            fee = swap_year / 365.0 * nights * o * usd * sum(m for _, m in pos)
+            bal -= fee
+            extra -= fee
+        prev_t = t
+        if time_stop and side is not None and pos and t - cur[0] >= timedelta(minutes=time_stop) \
+                and flo_at(o if side else o + spread) <= 0:
+            close_all(o, "time", t)
+        if be_map and side is not None and pos and j in be_map and be_map[j][0 if side else 1]:
+            avg = sum(e * m for e, m in pos) / sum(m for _, m in pos)
+            sl = max(sl, avg) if side else min(sl, avg + spread)
         if side is not None and exit_at and j in exit_at and exit_at[j][0 if side else 1]:
             px = o if side else o + spread
             if partial:
@@ -220,7 +242,8 @@ def run(tf, sig_rows, ex_rows, min_trade, min_limits, max_dist, sl_bars=3, sprea
             if side is None and ok:
                 entry = o + spread if is_buy else o
                 d = entry - s if is_buy else s - entry
-                if d < min_trade:
+                fc = lot_ctx(si, d, baskets, bal) if lot_ctx else 1.0
+                if d < min_trade or fc <= 0:
                     stats["skip_small"] += 1
                 else:
                     if d > max_dist:
@@ -232,7 +255,8 @@ def run(tf, sig_rows, ex_rows, min_trade, min_limits, max_dist, sl_bars=3, sprea
                     f = (deposit + bal) / scale_per if scale_per else 1.0
                     if lot_fn:
                         f *= lot_fn(si)
-                    if scale_mode == "floor" and not lot_fn:
+                    f *= fc
+                    if scale_mode == "floor" and not lot_fn and not lot_ctx:
                         sz = lambda m, f=f: m * max(1, math.floor(f))
                     else:
                         sz = lambda m, f=f: max(1, round(m * f))
@@ -296,6 +320,7 @@ def run(tf, sig_rows, ex_rows, min_trade, min_limits, max_dist, sl_bars=3, sprea
         flo = 0.0
         if side is not None:
             flo = flo_at(c if side else c + spread) * usd
+            wst[0] = min(wst[0], flo + extra)
         eq = bal + flo
         peak = max(peak, eq)
         max_dd = max(max_dd, peak - eq)
